@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Article;
+use App\Http\Controllers\Api\PostController;
+use App\Models\Post;
+use App\Models\Category;
+use App\Models\Commentary;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +21,13 @@ use App\Models\Article;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/articles', function(){
-        return Article::paginate(50);
-});
+
+
+//WEB
+Route::get('/posts', function(){ return Post::paginate(10); });
+Route::get('/post/{url}', [PostController::class, 'show']);
+Route::get('/posts/category/{id}', [PostController::class, 'showCategory']);
+Route::get('/categories', function(){ return Category::all(); });
+
+
+// Route::get('/mycomments/{user_id}', [CommentaryController::class, 'showMyComments']);

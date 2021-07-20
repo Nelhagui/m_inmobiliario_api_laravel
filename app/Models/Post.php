@@ -4,11 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Category;
-use Commentary;
-use User;
 
-class Article extends Model
+class Post extends Model
 {
     use HasFactory;
 
@@ -16,12 +13,17 @@ class Article extends Model
     {
     	return $this->belongsToMany(Category::class);
 	}
-	public function comentarios()
+	public function comments()
 	{
-	  return $this->hasMany(Commentary::class);
+	  return $this->hasMany(Comment::class);
 	}
     public function user()
 	{
 	  return $this->hasOne(User::class, 'id', 'user_id');
 	}
+	
+	protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }
