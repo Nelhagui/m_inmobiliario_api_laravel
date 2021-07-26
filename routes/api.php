@@ -24,9 +24,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 //WEB
-Route::get('/posts', function(){ return Post::orderBy('id', 'desc')->paginate(25); });
+Route::get('/posts', function(){ return Post::orderBy('id', 'desc')->paginate(20); });
 Route::get('/posts/busqueda', [PostController::class, 'busqueda']);
-Route::get('/post/{url}', [PostController::class, 'show']);
+Route::get('/post/edit/{post}', [PostController::class, 'edit']);
 Route::get('/posts/category/{id}', [PostController::class, 'showCategory']);
 Route::get('/categories', function(){ return Category::all(); });
 

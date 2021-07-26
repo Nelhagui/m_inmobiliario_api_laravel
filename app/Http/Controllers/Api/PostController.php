@@ -16,15 +16,20 @@ class PostController extends Controller
         $comments = $post->comments;
         return $post;
     }
+    
+    public function edit(Post $post)
+    {
+        return $post;
+    }
 
     public function busqueda(Request $request)
     {
-        // dd($request->get('entrada') == null);
         $param = $request->get('entrada');
         if($param !== null){
             $result = Post::where('title', 'like', '%'.$param.'%')
                             ->orWhere('permanent_link', 'like', '%'.$param.'%')
                             ->paginate(15);
+            $result->appends(request()->query())->links();
         } else{
             $result = Post::orderBy('id', 'desc')->paginate(25);
         }
